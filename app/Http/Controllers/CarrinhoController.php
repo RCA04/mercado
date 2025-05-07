@@ -53,4 +53,10 @@ class CarrinhoController extends Controller
         return redirect()->route('site.carrinho')->with('aviso','seu Carrinho está vazio!');
         
     }
+
+    public function limpaCarrinho_001(){
+        \Cart::clear();
+        return redirect()->route('site.carrinho')->with('aviso','seu Carrinho está vazio!');
+        
+    }
 }
