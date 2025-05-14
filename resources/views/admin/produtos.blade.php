@@ -2,13 +2,14 @@
 @section('titulo', 'Produtos')
 @section('conteudo')
 
-<div class="fixed-action-btn">
-    <a  class="btn-floating btn-large bg-gradient-green modal-trigger" href="#create">
-      <i class="large material-icons">add</i>
+  <div class="fixed-action-btn">
+    <a  class="btn-floating btn-large bg-gradient-green modal-trigger"href="#create">
+     <i class="large material-icons">add</i>
     </a>   
   </div>
 
-@include('admin.produtos.create')
+
+  @include('admin.produtos.create')
 
     <div class="row container crud">
 
@@ -55,12 +56,15 @@
                         <td>R$ {{ number_format($produto->preco, 2 , ',', '.')}}</td>
                         <td>{{$produto->categoria->name}}</td>
                         <td>
-                          <a class="btn-floating  waves-effect waves-light orange">
+                          <a href="#edit-{{$produto->id}}" class="btn-floating modal-trigger  waves-effect waves-light orange">
                             <i class="material-icons">mode_edit</i>
                           </a>
+                         
                           
-                        <a href="#delete-{{ $produto->id }}" class="btn-floating modal-trigger waves-effect waves-light red"><i class="material-icons">delete</i></a></td>
-                            @include('admin.produtos.delete')
+                        <a href="#delete-{{ $produto->id }}" class="btn-floating modal-trigger waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                      </td>
+                          @include('admin.produtos.edit',['categorias' => $categorias])
+                          @include('admin.produtos.delete')
                     </tr>
                     @endif
                     @endforeach
@@ -74,15 +78,20 @@
             </div>       
     </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
+   
+   
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+       // Script para limpar campo de pesquisa
     const clearIcon = document.getElementById('deletar');
     const searchInput = document.getElementById('search');
+    if (clearIcon && searchInput) {
+      clearIcon.addEventListener('click', function () {
+        searchInput.value = '';
+        window.location.href = "{{ route('admin.produtos') }}";
+      });
+    }
 
-    clearIcon.addEventListener('click', function () {
-      searchInput.value = ''; // limpa o campo
-      window.location.href = "{{ route('admin.produtos') }}"; // redireciona sem query
-    });
   });
-      </script>
+</script>
 @endsection

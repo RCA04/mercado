@@ -2,16 +2,34 @@
 @section('title', "Carrinho")
 @section('conteudo')
 
+<style>
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+    }
+    .fade-out {
+        animation: fadeOut 1.5s ease-out  forwards;
+    }
+
+
+</style>
+
 <div class="row container">
 
-    @if ($messagem = Session::get('sucesso'))
-    <div class="card-panel green">
-      {{$messagem }}
-    </div>
-    @endif
+  @if ($messagem = Session::get('sucesso'))
+<div id="positivo" class="card-panel green">
+  {{$messagem }}
+</div>
+@endif
 
     @if ($messagem = Session::get('aviso'))
-    <div class="card-panel blue">
+    <div id="aviso" class="card-panel blue">
       {{$messagem }}
     </div>
     @endif
@@ -30,7 +48,7 @@
     <table class="striped"> 
         <thead>
             <tr>
-                <th></th>
+                <th></th> 
                 <th>Nome</th>
                 <th>Preço</th>
                 <th>Quantidade</th>
@@ -40,10 +58,8 @@
         <tbody>
             @foreach ( $itens as $item )
             <tr>
-            @if(!empty($item->attribues->image))
-            <td><img src="{{$item->attributes->get('image')}}" alt="" width="70" class="responsive-img circle" ></td>
-            @else <span> Sem imagem</span>
-            @endif
+            <td>              
+            <img src="{{ $item->attributes->image }}" alt="{{ $item->name }}" alt="" width="70" class="responsive-img circle" ></td>
 
             <td>{{$item->name}}</td>
             <td>RS: {{ number_format($item->price, 2 , ',', '.')}}</td>
@@ -75,22 +91,45 @@
       <div class="card orange">
         <div class ="card-content white-text">
             <span class ="card-title">R$ {{ number_format(\Cart::getTotal(), 2 , ',', '.')}}</h5></span>
-            <p>Pague em até 12x sem juros!</p>
+            <span>Pagamento somente via pix!</span>
         </div>
       </div>
   
 
 
-
     @endif
-    
-            
       <div class= "row container center">
         <a href="{{ route('site.index') }}" class="btn  waves-effect waves-light blue">continuar comprando<i class="material-icons" right>arrow_back</i></a>
         <a  href="{{ route('site.limparcarrinho') }}" class="btn  waves-effect waves-light blue">Limpar carrinho<i class="material-icons">clear</i></a>
-        <button class="btn  waves-effect waves-light green">finalizar pedido<i class="material-icons">check</i></button>
+        <a href="#pagamento" class="btn  waves-effect waves-light green modal-trigger">finalizar pedido<i class="material-icons">check</i></a>
       </div>
-
+      @include('site.pagamento')
 </div>
+
+<script>
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+        var card = document.getElementById('aviso');
+        if(card) {
+            card.classList.add('fade-out');
+            setTimeout(function(){
+                card.style.display = 'none'
+          },900);
+        }
+      }, 3500);
+
+       setTimeout(function() {
+        var card = document.getElementById('positivo');
+        if(card) {
+            card.classList.add('fade-out');
+            setTimeout(function(){
+                card.style.display = 'none'
+          },900);
+        }
+      }, 3500);
+      
+    });
+
+</script>
 
 @endsection

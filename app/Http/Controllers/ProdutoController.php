@@ -63,20 +63,87 @@ class ProdutoController extends Controller
         return redirect()->route('admin.produtos')->with('sucesso', 'produto cadastrado com sucesso');
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request){
+        
+         $produto = Produtos::find($request->id);
 
-        $name = $request->input("nome");
-        $preco = $request->input("preco");
-        $description = $request->input("descrição");
-        $imagem = $request->input("imagem");
+         $name = $request->input("nome");
+        
+         if($name == null){
+             $name = $produto->nome;
+         }
+        
+         $preco = $request->input("preco");
+        
+         if($preco == null){
+             $preco = $produto->preco;
+         }
 
-        $produto->nome =  $name;
-        $produto->preco = $preco;
-        $produto->descrição = $description;
-        $produto->imagem = $imagem;
-        $produto->save();
+         $description = $request->input('descrição');
+        
+         if($description == null){
+             $description = $produto->descrição;
+         }
+
+          $categoria = $request->input('id_categoria');
+
+          if($categoria == null){
+             $categoria = $produto->id_categoria;
+          }
+         
+
+        
+
+         if($request->file('imagem')){
+             $file = $request->file('imagem');
+             $fileName = date('dmYH').'_'.$file->getClientOriginalName(). '.' .$file->getClientOriginalExtension();
+             $file->move(public_path('img/products'), $fileName);
+         }
+        
+         else{
+             $fileName = $produto->imagem;
+         }
+
+         $imagem = $fileName;
+
+        
+         $produto->nome =  $name;
+         $produto->preco = $preco;
+         $produto->descrição = $description;
+         $produto->id_categoria = $categoria;
+        
+         $produto->imagem = $imagem;
+
+         $produto->save();
+         
+         return redirect()->route('admin.produtos')->with('sucesso', 'produto atualizado com sucesso!');
 
 
+    //     $produto = Produtos::find($request->id);
+
+    // $name = $request->input("nome") ?? $produto->nome;
+    // $preco = $request->input("preco") ?? $produto->preco;
+    // $description = $request->input("descrição") ?? $produto->descrição;
+    // $categoria = $request->filled('id_categoria') ? $request->input('id_categoria') : $produto->id_categoria;
+
+    // if($request->file('imagem')) {
+    // $file = $request->file('imagem');
+    // $fileName = date('dmYH').'_'.$file->getClientOriginalName(). '.' .$file->getClientOriginalExtension();
+    // $file->move(public_path('img/products'), $fileName);
+    // $imagem = $fileName;
+    // } else {
+    // $imagem = $produto->imagem;
+    // }
+
+    // $produto->update([
+    // 'nome' => $name,
+    // 'preco' => $preco,
+    // 'descrição' => $description,
+    // 'id_categoria' => $categoria,
+    // 'imagem' => $imagem,
+    // ]);
+
+        
     }
 
 }

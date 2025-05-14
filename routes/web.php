@@ -1,15 +1,19 @@
 <?php
 
 use App\Http\Controllers\CarrinhoController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\TesteController;
+use App\Http\Controllers\VendaController;
+use App\Models\Vendas;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
+use LaravelQRCode\Facades\QRCode;
 
 
 
@@ -126,6 +130,13 @@ Route::post('/remove',[CarrinhoController::class,'removeCarrinho'])->name('site.
 Route::post('/atualizar',[CarrinhoController::class,'atualizaCarrinho'])->name('site.atualizacarrinho');
 Route::get('/limpar',[CarrinhoController::class, 'limpaCarrinho'])->name('site.limparcarrinho');
 
+Route::get('qr-code', function () 
+{
+    return QRCode::text('Este qr-code é para somente demonstração')->png();    
+
+})->name('qr-code');
+
+
 Route::view('/', 'login.form')->name('login.form');
 Route::post('/auth', [loginController::class, 'auth'])->name('login.auth');
 Route::get('/logout', [loginController::class, 'logout'])->name('login.logout');
@@ -139,6 +150,16 @@ Route::put('/perfil/update',[profileController::class, 'update'])->name('profile
 
 Route::get('/admin/dashboard', [dashboardController::class, 'index'])->name('admin.dashboard')->middleware('auth');
 Route::get('/admin/produtos', [ProdutoController::class, 'index'])->name('admin.produtos')->middleware('auth');
-Route::delete('/admin/produto/delete/{id}', [ProdutoController::class, 'destroy'])->name('admin.produto.delete')->middleware('auth');
-Route::delete('/admin/produto/update/{id}', [ProdutoController::class, 'update'])->name('admin.produto.update')->middleware('auth');
+Route::delete('/admin/produto/delete/{id}', [ProdutoController::class, 'destroy'])->name('admin.produto.delete')->middleware('auth');;
+Route::put('/admin/produto/update/{id}', [ProdutoController::class, 'update'])->name('admin.produto.update')->middleware('auth');;
 Route::post('/admin/produto/store', [ProdutoController::class,'store'])->name('admin.produto.store')->middleware('auth');
+
+
+Route::get('/admin/categorias', [CategoriaController::class, 'index'])->name('admin.categorias')->middleware('auth');
+Route::delete('/admin/categoria/delete/{id}', [CategoriaController::class, 'destroy'])->name('admin.categoria.delete')->middleware('auth');;
+Route::put('/admin/categoria/update/{id}', [CategoriaController::class, 'update'])->name('admin.categoria.update')->middleware('auth');;
+Route::post('/admin/categoria/store', [CategoriaController::class,'store'])->name('admin.categoria.store')->middleware('auth');
+Route::get('/admin/usuarios', [UserController::class,'show'])->name('admin.usuarios')->middleware(middleware: 'auth');
+Route::delete('/admin/usuario/{id}', [UserController::class,'destroy'])->name('admin.usuario.delete')->middleware(middleware: 'auth');
+
+Route::post('/pagamento', [VendaController::class,'store'])->name('registrar.pagamento')->middleware(middleware: 'auth');

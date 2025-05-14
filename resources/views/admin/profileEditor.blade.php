@@ -47,7 +47,7 @@
 
           
           <img src="{{ auth()->user()->photo ? asset('img/profiles/' . auth()->user()->photo) : 'https://img.icons8.com/fluency-systems-filled/48/user.png'}}"
-          alt=""  class="z-0 w-50 h-50 rounded-full border-4 mt-[10px] mb-[17px] shadow-2xl/100" />
+          alt=""  class="z-0 w-50 h-50 rounded-full border-4 mt-[10px] mb-[17px] shadow-2xl/100" style="image-pre" />
           
           <label for="file" class="absolute rounded-full cursor-pointer bg-sky-300" >
           <i class="material-icons text-black">create</i>

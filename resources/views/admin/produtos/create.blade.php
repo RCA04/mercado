@@ -23,14 +23,14 @@
           </div>
 
           <div class="input-field col s12">
-            <select name="id_categoria">
-              <option value="" disabled selected>Escolha uma opção</option>
+            <select name="id_categoria" required>
+              <option value=""  disabled selected>Escolha uma opção</option>
               @foreach ($categorias as $c )
               <option value="{{ $c->id }}">{{$c->name}}</option>
               @endforeach
             </select>
             <label>Categoria</label>
-          </div>     
+          </div>  
           
 
           <div class="inline-flex items-center">

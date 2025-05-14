@@ -67,9 +67,15 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $search = $request->query('search');
+
+        $users = User::when($search, function($query) use ($search) {
+            $query->where('name', 'like', "%{$search}%");
+        })->paginate(5);
+    
+        return view('admin.usuarios', compact('users', 'search')); 
     }
 
     /**
@@ -93,6 +99,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('admin.usuarios')->with('sucesso', 'Usuario removido com sucesso');
+    
     }
 }

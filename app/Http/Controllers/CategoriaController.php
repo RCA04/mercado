@@ -10,10 +10,18 @@ class CategoriaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index(Request $request)
+     {
+         $search = $request->query('search');
+
+         $categorias = Categoria::when($search, function($query) use ($search) {
+                 $query->where('name', 'like', "%{$search}%");
+             })
+             ->paginate(5);
+    
+        return view('admin.categorias', compact('categorias', 'search'));            
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +36,22 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categorias = $request->all();
+
+        $validate= $request->validate([
+            'name' =>'required|string',
+            'descricao'=>'required|string',
+        ]);
+     
+
+
+        $categorias = Categoria::create([
+            'name'=> $request->name,
+            'descricao'=> $request->descricao
+        ]);
+       
+        return redirect()->route('admin.categorias')->with('sucesso', 'Categoria cadastrada com sucesso');
+    
     }
 
     /**
@@ -42,9 +65,9 @@ class CategoriaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categoria $categoria)
+    public function edit(Request $request)
     {
-        //
+
     }
 
     /**
@@ -52,15 +75,40 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        $categoria = Categoria::find($request->id);
+
+        $name = $request->input("name");
+       
+        if($name == null){
+            $name = $categoria->name;
+        }
+       
+
+        $description = $request->input('descricao');
+       
+        if($description == null){
+            $description = $categoria->descricao;
+        }
+
+       
+        $categoria->name =  $name;
+        $categoria->descricao = $description;       
+        $categoria->save();
+       
+        return redirect()->route('admin.categorias')->with('sucesso', 'Categoria atualizada com sucesso!');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        //
+    
+            $categorias=Categoria::find($id);
+            $categorias->delete();
+            return redirect()->route('admin.categorias')->with('sucesso', 'Categoria removida com sucesso!');
+    
     }
 
         /**
