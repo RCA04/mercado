@@ -40,6 +40,8 @@ class dashboardController extends Controller
         $catData = Categoria::with('produtos')->get();
 
         //preparar array
+        $catNome = [];
+        $catTotal = [];
         foreach($catData as $cat){
             $catNome[]="'".$cat->name."'";
             $catTotal[]= $cat->produtos->count();

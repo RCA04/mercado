@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Produtos;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Categoria;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,8 +22,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $categoriasMenu = Categoria::all();
-        view()->share('categoriasMenu', $categoriasMenu);
+    if (Schema::hasTable('categorias')) {
+    $categoriasMenu = Categoria::all();
+    view()->share('categoriasMenu', $categoriasMenu);
+}
+
     }
     
     /*{
