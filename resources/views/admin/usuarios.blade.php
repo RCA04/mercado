@@ -45,7 +45,8 @@
                         <td>
                         <img
                         src="{{ auth()->user()->photo ? asset('img/profiles/' . auth()->user()->photo) : 'https://img.icons8.com/fluency-systems-filled/48/user.png'}}"
-                        class="w-15 h-15 rounded-full shadow-2xl/100"
+                        class="w-[65px] h-[65px] rounded-full shadow-sm/70"
+                        style=" border: 2px solid; border-color: #d9d9d9;"
                         />
                         </td>
                         <td>{{$user->name}}</td>                    

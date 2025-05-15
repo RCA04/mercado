@@ -10,16 +10,23 @@
 
       <div class="row">
         <div class="input-field col s6">
-          <input name="nome" id="nome" type="text" class="validate" placeholder="{{$produto->nome}}">
+          <input name="nome" id="nome" type="text" class="validate" placeholder="Nome"
+          value="{{ $produto->nome }}"
+          >
           <label for="nome">Nome</label>
         </div>
         <div class="input-field col s6">
-          <input name="preco" id="preco" type="number" class="validate" placeholder="{{$produto->preco}}">
+          <input name="preco" id="preco" type="number" class="validate"
+           placeholder="preço" step="0.01"
+           value="{{ $produto->preco }}"
+           >
           <label for="preco">Preço</label>
         </div>
 
-        <div class="input-field col s12">
-          <input name="descrição" id="descrição" type="text" class="validate" placeholder="{{$produto->descrição}}">
+        <div class="input-field col s12"> 
+          <input name="descrição" id="descrição" type="text" class="validate" placeholder="descrição"
+          value="{{ $produto->descrição }}"
+          >
           <label for="descrição">Descrição</label>
         </div>
           <!--Select que vai pro beck-->
@@ -45,19 +52,23 @@
             </select>
             <label>Categoria</label>
           </div> 
+                      <div class="inline-flex items-center">
+            <div class="btn">
+              <label for="file">
+                <span class="text-white">  
+                Adicionar Imagem
+                </span>
+              </label>
+            </div>
+            <div class="file-path-wrapper pl-[5px] border-r-2 border-b-2 border-t-2 rounded-r-xl border-slate-100 border-b-slate-300 block h-[36px]">
+              <input type="file" id="file" name="imagem" accept=".png, .jpeg, .jpg" class="hidden" 
+              onchange="previewImage(event)">
+              <img class="w-[75px] h-[75px] ml-[15px] mb-[15px]" id="imagePreview"
+              src="{{ $produto->imagem ? asset('img/products/' . $produto->imagem) :  'https://img.icons8.com/pastel-glyph/128/box--v3.png'}}"
+              >
+              </div>
+          </div>
 
-        <div class="inline-flex items-center">
-          <div class="btn">
-            <label for="file">
-              <span class="text-white">Adicionar Imagem</span>
-            </label>
-          </div>
-          <div class="file-path-wrapper pl-[5px] border-r-2 border-b-2 border-t-2 rounded-r-xl border-slate-100 border-b-slate-300 block h-[36px]">
-            <input type="file" id="file" name="imagem" accept=".png, .jpeg, .jpg" value="imagem">
-          </div>
-        </div>
-      </div> 
-      
       <div>
         <button type="submit" class="waves-effect waves-green btn green right">Salvar</button><br>
       </div> 
@@ -65,15 +76,26 @@
   </div>
 
    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const visibleSelect = document.getElementById('id_categoria_visivel');
-      const hiddenSelect = document.getElementById('id_categoria_hidden');
+     document.addEventListener('DOMContentLoaded', function () {
+       const visibleSelect = document.getElementById('id_categoria_visivel');
+       const hiddenSelect = document.getElementById('id_categoria_hidden');
 
-      if (visibleSelect && hiddenSelect) {
-        visibleSelect.addEventListener('change', function () {
-          hiddenSelect.value = this.value;
-        });
-      }
-    });
+       if (visibleSelect && hiddenSelect) {
+         visibleSelect.addEventListener('change', function () {
+           hiddenSelect.value = this.value;
+         });
+       }
+     });
+
+     function previewImage(event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function(){
+            var img = document.getElementById('imagePreview');
+            img.src = reader.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+
   </script>
 </div>

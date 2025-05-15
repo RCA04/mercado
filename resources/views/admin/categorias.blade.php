@@ -36,28 +36,28 @@
             <table class="striped ">
                 <thead>
                   <tr>
-                    <th></th>
                     <th>ID</th>  
                     <th>Nome</th>
-                      <th>Descrição</th>
-                      <th></th>
+                    <th>Descrição</th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </thead>
         
                 <tbody>
                   @foreach ($categorias as $categoria )
                       <tr>
-                        <td></td>
                         <td>#{{$categoria->id}}</td>
                         <td>{{$categoria->name}}</td>                    
                         <td>{{$categoria->descricao}}</td>
                         <td>
                            <a href="#edit-{{ $categoria->id }}" class="btn-floating modal-trigger  waves-effect waves-light orange">
                             <i class="material-icons">mode_edit</i>
-                          </a>
-                         
-                          
+                          </a>                          
+                      </td>
+                      <td>
                         <a href="#delete-{{ $categoria->id }}" class="btn-floating modal-trigger waves-effect waves-light red"><i class="material-icons">delete</i></a>
+
                       </td>
                           @include('admin.categorias.edit',['categoria' => $categoria])
                           @include('admin.categorias.delete')

@@ -59,7 +59,12 @@
             @foreach ( $itens as $item )
             <tr>
             <td>              
-            <img src="{{ $item->attributes->image }}" alt="{{ $item->name }}" alt="" width="70" class="responsive-img circle" ></td>
+            <img src="{{ $item->attributes->image }}" alt="{{ $item->name }}" 
+            alt="" 
+            class="circle w-[65px] h-[65px] shadow-sm/70"
+            style=" border: 2px solid; border-color: #d9d9d9;"
+            >
+            </td>
 
             <td>{{$item->name}}</td>
             <td>RS: {{ number_format($item->price, 2 , ',', '.')}}</td>
@@ -70,14 +75,15 @@
               <td>
                 <input type="hidden" name="id" value={{ $item->id }}>
                 <input style="width: 40px; font-weight:900;" class="white center" min="1" type="number" name="quantity" value="{{$item->quantity}}"></td>
-            <td>
+              <td>
                 <button class="btn-floating  waves-effect waves-light orange"><i class="material-icons">refresh</i></button>
-            
+              </td>
               </form>
                  {{-- Botão de remover --}}
                 <form action="{{ route('site.removecarrinho') }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   <input type="hidden" name="id" value="{{ $item->id }}">
+                  <td>
                 <button class="btn-floating  waves-effect waves-light red"><i class="material-icons">delete</i></button>
                 </form>
               </td>
@@ -99,9 +105,9 @@
 
     @endif
       <div class= "row container center">
-        <a href="{{ route('site.index') }}" class="btn  waves-effect waves-light blue">continuar comprando<i class="material-icons" right>arrow_back</i></a>
-        <a  href="{{ route('site.limparcarrinho') }}" class="btn  waves-effect waves-light blue">Limpar carrinho<i class="material-icons">clear</i></a>
-        <a href="#pagamento" class="btn  waves-effect waves-light green modal-trigger">finalizar pedido<i class="material-icons">check</i></a>
+        <a href="{{ route('site.index') }}" class="btn  waves-effect waves-light blue" style="display:inline-flex" >continuar comprando<i class="material-icons" right>arrow_back</i></a>
+        <a  href="{{ route('site.limparcarrinho') }}" class="btn  waves-effect waves-light blue" style="display:inline-flex">Limpar carrinho<i class="material-icons">clear</i></a>
+        <a href="#pagamento" class="btn  waves-effect waves-light green modal-trigger" style="display:inline-flex">finalizar pedido<i class="material-icons">check</i></a>
       </div>
       @include('site.pagamento')
 </div>

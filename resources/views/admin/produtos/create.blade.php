@@ -13,7 +13,7 @@
             <label for="nome">Nome</label>
           </div>
           <div class="input-field col s6">
-            <input name="preco" id="preco" type="number" class="validate">
+            <input name="preco" id="preco" type="number" class="validate" step='0.01'>
             <label for="preco">Preço</label>
           </div>
 
@@ -42,9 +42,10 @@
               </label>
             </div>
             <div class="file-path-wrapper pl-[5px] border-r-2 border-b-2 border-t-2 rounded-r-xl border-slate-100 border-b-slate-300 block h-[36px]">
-              <input type="file" id="file" name="imagem" accept=".png, .jpeg, .jpg"
-               value="imagem">
-            </div>
+              <input type="file" id="file" name="imagem" accept=".png, .jpeg, .jpg" class="hidden" 
+              onchange="previewImage(event)">
+              <img class="w-[75px] h-[75px] ml-[15px] mb-[15px] hidden" id="imagePreview">
+              </div>
           </div>
 
         </div> 
@@ -53,5 +54,20 @@
        </div> 
       </form>
       </div>
+
+      <script>
+
+         function previewImage(event) {
+        var input = event.target;
+        var reader = new FileReader();
+       
+        reader.onload = function(){
+            var img = document.getElementById('imagePreview');
+            img.src = reader.result;
+            img.classList.remove("hidden");
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+        </script>
 
 </div>

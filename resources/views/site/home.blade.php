@@ -14,10 +14,10 @@
      @endif 
 
   @foreach ( $produtos as $produto )
-    <div class="col s10 m4">
-        <div class="card">
+    <div class="col s10 m4 ">
+        <div class="card" style=" border: 2px solid; border-color: #d9d9d9; box-shadow: 10px 10px 10px #bfbfbf">
             <div class="card-image">
-              <img src="{{ $produto->imagem ? asset('img/products/' . $produto->imagem) :  'https://img.icons8.com/pastel-glyph/128/box--v3.png'}}" class="h-100">
+              <img src="{{ $produto->imagem ? asset('img/products/' . $produto->imagem) :  'https://img.icons8.com/pastel-glyph/128/box--v3.png'}}" class="h-100 w-100">
               <a href="{{ route('site.details', $produto->slug) }}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">visibility</i></a>
             </div>
             <div class="card-content">

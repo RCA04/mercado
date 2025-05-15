@@ -39,9 +39,9 @@
                     <th></th>
                     <th>ID</th>  
                     <th>Produto</th>
-                      
                       <th>Preço</th>
                       <th>Categoria</th>
+                      <th></th>
                       <th></th>
                   </tr>
                 </thead>
@@ -50,18 +50,22 @@
                   @foreach ($produtos as $produto )
                   @if ($produto->id_user == auth()->user()->id)
                       <tr>
-                        <td><img src="{{ $produto->imagem ? asset('img/products/' . $produto->imagem) :  'https://img.icons8.com/pastel-glyph/128/box--v3.png'}}"  class="circle"></td>
+                        <td><img src="{{ $produto->imagem ? asset('img/products/' . $produto->imagem) :  'https://img.icons8.com/pastel-glyph/128/box--v3.png'}}"
+                          class="circle w-[65px] h-[65px] shadow-sm/70"
+                          style=" border: 2px solid; border-color: #d9d9d9;"
+                          
+                          >
+                          </td>
                         <td>#{{$produto->id}}</td>
                         <td>{{$produto->nome}}</td>                    
-                        <td>R$ {{ number_format($produto->preco, 2 , ',', '.')}}</td>
+                        <td>R$ {{ number_format($produto->preco,  2, ',', '.')}}</td>
                         <td>{{$produto->categoria->name}}</td>
                         <td>
                           <a href="#edit-{{$produto->id}}" class="btn-floating modal-trigger  waves-effect waves-light orange">
                             <i class="material-icons">mode_edit</i>
                           </a>
-                         
-                          
                         <a href="#delete-{{ $produto->id }}" class="btn-floating modal-trigger waves-effect waves-light red"><i class="material-icons">delete</i></a>
+
                       </td>
                           @include('admin.produtos.edit',['categorias' => $categorias])
                           @include('admin.produtos.delete')

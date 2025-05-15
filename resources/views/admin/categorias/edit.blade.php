@@ -7,18 +7,24 @@
       @method('PUT')
       <div class="row">
         <div class="input-field col s6" style="width:100%">
-          <input name="name" id="name" type="text" class="validate" placeholder="{{$categoria->name}}">
+          <input name="name" id="name" type="text" class="validate"
+           placeholder="Nome"
+           value="{{$categoria->name}}"
+           >
           <label for="name">Nome</label>
         </div>
         <div class="input-field col s12">
-          <input name="descricao" id="descricao" type="text" class="validate" placeholder="{{$categoria->descricao}}">
+          <input name="descricao" id="descricao" type="text" class="validate"
+           placeholder="descriçao"
+           value="{{$categoria->descricao}}"
+           >
           <label for="descricao">Descrição</label>
         </div>
 
       </div>
       </div> 
       
-      <div class="w-full inline-flex justify-center mb-1">
+      <div class="w-full inline-flex justify-center mb-[24px]">
         <button type="submit" class="waves-effect waves-green btn green w-[90%]">Salvar</button><br>
       </div> 
     </form>
