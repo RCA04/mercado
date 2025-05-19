@@ -59,7 +59,7 @@
              </div></li> 
               <li><a href="{{ route('admin.dashboard') }}"><i class="material-icons">dashboard</i>Dashboard</a></li>
               <li><a href="{{ route('admin.produtos') }}"><i class="material-icons">playlist_add_circle</i>Produtos</a></li>
-              <li><a href="{{ route('site.carrinho') }}"><i class="material-icons">shopping_cart</i>Pedidos</a></li>
+              <li><a href="{{ route('admin.pedidos') }}"><i class="material-icons">shopping_cart</i>Pedidos</a></li>
               <li><a href="{{ route('admin.categorias') }}"><i class="material-icons">bookmarks</i>Categorias</a></li>
               <li><a href="{{ route('admin.usuarios') }}"><i class="material-icons">people</i>Usuários</a></li>
           </ul>

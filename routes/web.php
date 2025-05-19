@@ -28,8 +28,8 @@ use LaravelQRCode\Facades\QRCode;
     })->name('dashboard');
 });
 */
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
 
 /*Route::get('exemplo1', function(){ //cria uma nova rota
     return view('testesRota/exemplo-01');//callback(o que vai mostar na pagina)
@@ -117,22 +117,21 @@ Route::group([
 });*/
 
 //controlador camada responsavel pela logica e regras de negocios
-Route::resource('produtos', ProdutoController::class);  
-Route::resource('users', UserController::class);  
+Route::resource('produtos', ProdutoController::class);
+Route::resource('users', UserController::class);
 
 Route::get('/inicio', [SiteController::class, 'index'])->name('site.index')->middleware('auth');
 Route::get('/produto/{slug}', [SiteController::class, 'details'])->name('site.details')->middleware('auth');
 Route::get('/categoria/{id}', [SiteController::class, 'categoria'])->name('site.categoria')->middleware('auth');
 
-Route::get('/carrinho',[CarrinhoController::class,'carrinhoLista'])->name('site.carrinho')->middleware('auth');
-Route::post('/carrinho',[CarrinhoController::class,'adicionarCarrinho'])->name('site.addcarrinho');
-Route::post('/remove',[CarrinhoController::class,'removeCarrinho'])->name('site.removecarrinho');
-Route::post('/atualizar',[CarrinhoController::class,'atualizaCarrinho'])->name('site.atualizacarrinho');
-Route::get('/limpar',[CarrinhoController::class, 'limpaCarrinho'])->name('site.limparcarrinho');
+Route::get('/carrinho', [CarrinhoController::class, 'carrinhoLista'])->name('site.carrinho')->middleware('auth');
+Route::post('/carrinho', [CarrinhoController::class, 'adicionarCarrinho'])->name('site.addcarrinho');
+Route::post('/remove', [CarrinhoController::class, 'removeCarrinho'])->name('site.removecarrinho');
+Route::post('/atualizar', [CarrinhoController::class, 'atualizaCarrinho'])->name('site.atualizacarrinho');
+Route::get('/limpar', [CarrinhoController::class, 'limpaCarrinho'])->name('site.limparcarrinho');
 
-Route::get('qr-code', function () 
-{
-    return QRCode::text('Este qr-code é para somente demonstração')->png();    
+Route::get('qr-code', function () {
+    return QRCode::text('Este qr-code é para somente demonstração')->png();
 
 })->name('qr-code');
 
@@ -142,24 +141,29 @@ Route::post('/auth', [loginController::class, 'auth'])->name('login.auth');
 Route::get('/logout', [loginController::class, 'logout'])->name('login.logout');
 Route::get('/register', [loginController::class, 'create'])->name('login.create');
 
-Route::get('/perfil',[profileController::class, 'index'])->name('profile.view')->middleware('auth');
-Route::get('/perfil/editor',[profileController::class, 'edit'])->name('profile.edit')->middleware('auth');
-Route::put('/perfil/update',[profileController::class, 'update'])->name('profile.update')->middleware('auth');
+Route::get('/perfil', [profileController::class, 'index'])->name('profile.view')->middleware('auth');
+Route::get('/perfil/editor', [profileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+Route::put('/perfil/update', [profileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 
 
 Route::get('/admin/dashboard', [dashboardController::class, 'index'])->name('admin.dashboard')->middleware('auth');
 Route::get('/admin/produtos', [ProdutoController::class, 'index'])->name('admin.produtos')->middleware('auth');
-Route::delete('/admin/produto/delete/{id}', [ProdutoController::class, 'destroy'])->name('admin.produto.delete')->middleware('auth');;
-Route::put('/admin/produto/update/{id}', [ProdutoController::class, 'update'])->name('admin.produto.update')->middleware('auth');;
-Route::post('/admin/produto/store', [ProdutoController::class,'store'])->name('admin.produto.store')->middleware('auth');
+Route::delete('/admin/produto/delete/{id}', [ProdutoController::class, 'destroy'])->name('admin.produto.delete')->middleware('auth');
+;
+Route::put('/admin/produto/update/{id}', [ProdutoController::class, 'update'])->name('admin.produto.update')->middleware('auth');
+;
+Route::post('/admin/produto/store', [ProdutoController::class, 'store'])->name('admin.produto.store')->middleware('auth');
 
 
 Route::get('/admin/categorias', [CategoriaController::class, 'index'])->name('admin.categorias')->middleware('auth');
-Route::delete('/admin/categoria/delete/{id}', [CategoriaController::class, 'destroy'])->name('admin.categoria.delete')->middleware('auth');;
-Route::put('/admin/categoria/update/{id}', [CategoriaController::class, 'update'])->name('admin.categoria.update')->middleware('auth');;
-Route::post('/admin/categoria/store', [CategoriaController::class,'store'])->name('admin.categoria.store')->middleware('auth');
-Route::get('/admin/usuarios', [UserController::class,'show'])->name('admin.usuarios')->middleware(middleware: 'auth');
-Route::delete('/admin/usuario/{id}', [UserController::class,'destroy'])->name('admin.usuario.delete')->middleware(middleware: 'auth');
+Route::delete('/admin/categoria/delete/{id}', [CategoriaController::class, 'destroy'])->name('admin.categoria.delete')->middleware('auth');
+;
+Route::put('/admin/categoria/update/{id}', [CategoriaController::class, 'update'])->name('admin.categoria.update')->middleware('auth');
+;
+Route::post('/admin/categoria/store', [CategoriaController::class, 'store'])->name('admin.categoria.store')->middleware('auth');
+Route::get('/admin/usuarios', [UserController::class, 'show'])->name('admin.usuarios')->middleware(middleware: 'auth');
+Route::delete('/admin/usuario/{id}', [UserController::class, 'destroy'])->name('admin.usuario.delete')->middleware(middleware: 'auth');
+Route::get('/admin/pedidos', [VendaController::class, 'index'])->name('admin.pedidos')->middleware(middleware: 'auth');
 
-Route::post('/pagamento', [VendaController::class,'store'])->name('registrar.pagamento')->middleware(middleware: 'auth');
+Route::post('/pagamento', [VendaController::class, 'store'])->name('registrar.pagamento')->middleware(middleware: 'auth');
