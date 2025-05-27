@@ -41,9 +41,9 @@
                        </div>
                    </div>
                    <input type="file" id="file" name="imagem" accept=".png, .jpeg, .jpg" class="hidden">
-                   <div class="w-[100%] h-[150px] flex justify-center items-center mt-[20px]">
-                       <div id="imagePreviewContainer"
-                           class="bg-slate-400 h-[100%] w-[150px] hidden items-center justify-center">
+                   <div id="imagePreviewContainer"
+                       class="w-[100%] h-[150px] hidden justify-center items-center mt-[20px]">
+                       <div class="bg-slate-400 h-[100%] w-[150px] flex items-center justify-center">
                            <img id="imagePreview" class="hidden w-[110px] h-[100px]">
                        </div>
                    </div>

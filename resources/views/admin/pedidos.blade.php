@@ -29,7 +29,7 @@
                             <td>#{{ $venda->id }}</td>
                             <td>{{ $venda->pedido }}</td>
                             <td>{{ $venda->valor }}</td>
-                            <td>{{ date('d-m-Y', strtotime($venda->created_at)) }}</td>
+                            <td>{{ date('d/m/Y', strtotime($venda->created_at)) }}</td>
                             <td>
                                 <a href="#view-{{ $venda->id }}"
                                     class="btn-floating modal-trigger  waves-effect waves-light red">

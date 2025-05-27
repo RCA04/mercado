@@ -12,7 +12,8 @@ class VendaController extends Controller
 
     public function index(Request $request)
     {
-        $vendas = Vendas::paginate(5);
+        $vendas = Vendas::where('id_user', auth()->id())->paginate(5); // 🔒 Só produtos do usuário logado
+
 
         $search = $request->query('search');
 
@@ -20,6 +21,8 @@ class VendaController extends Controller
         foreach ($vendas as $venda) {
             $venda->items = json_decode($venda->items ?? '[]');
         }
+
+
 
         return view("admin.pedidos", compact('vendas'));
     }
