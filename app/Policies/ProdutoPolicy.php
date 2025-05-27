@@ -15,7 +15,8 @@ class ProdutoPolicy
     {
         //
     }
-    public function verProduto(User $user, Produtos $produto){
-        return $user->id === $produto->id_user;
-    }
+    //policy  de teste
+    //  public function verProduto(User $user, Produtos $produto){
+    //      return $user->id === $produto->id_user;
+    //  }
 }

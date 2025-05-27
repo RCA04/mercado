@@ -1,22 +1,20 @@
-   <!-- Modal Structure -->
-   <!-- Modal Structure -->
 <div id="delete-{{ $produto->id }}" class="modal">
     <div class="modal-content">
         <h4><i class="material-icons">delete</i>Tem certeza?</h4>
-            <div class="row">
-        
+        <div class="row">
+
             <p>tem certeza que deseja excluir {{$produto->nome}}</p>
 
 
-            </div>
-        
-            <a href="#!" class="modal-close waves-effect waves-green btn blue right ml-[5px]">Cancelar</a>
-            
-            <form action="{{ route('admin.produto.delete', $produto->id) }}" method="POST">
+        </div>
+
+        <a href="#!" class="modal-close waves-effect waves-green btn blue right ml-[5px]">Cancelar</a>
+
+        <form action="{{ route('admin.produto.delete', $produto->id) }}" method="POST">
             @method('DELETE')
-            @csrf   
+            @csrf
             <button type="submit" class=" waves-effect waves-green btn red right ">Excluir</button><br>
-            </form>
-    
+        </form>
+
     </div>
 </div>

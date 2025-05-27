@@ -40,15 +40,19 @@ class dashboardController extends Controller
         $catData = Categoria::with('produtos')->get();
 
         //preparar array
+        $catNome = [];
+        $catTotal = [];
         foreach($catData as $cat){
-            $catNome[]="'".$cat->nome."'";
+            $catNome[]="'".$cat->name."'";
             $catTotal[]= $cat->produtos->count();
         }
 
         //formatar
-        $catLabel = implode(',', $catNome);
+        $catLabel = implode( ',', $catNome); 
         $catTotal= implode(',', $catTotal);
 
-        return view('admin.dashboard', compact('usuarios', 'userLabel', 'userAno', 'userTotal', 'catLabel', 'catTotal'));
+        $vendas = auth()->user()->vendas;
+        
+        return view('admin.dashboard', compact('usuarios', 'userLabel', 'userAno', 'userTotal', 'catLabel', 'catTotal', 'vendas'));
     }
 }

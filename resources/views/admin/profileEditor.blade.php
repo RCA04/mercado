@@ -47,13 +47,16 @@
 
           
           <img src="{{ auth()->user()->photo ? asset('img/profiles/' . auth()->user()->photo) : 'https://img.icons8.com/fluency-systems-filled/48/user.png'}}"
-          alt=""  class="z-0 w-50 h-50 rounded-full border-4 mt-[10px] mb-[17px] shadow-2xl/100" />
+          alt="" id="imagePreview" class="z-0 w-50 h-50 rounded-full mt-[10px] mb-[17px] shadow-xl/80"
+          style="border: 2px solid #cccccc"/>
           
           <label for="file" class="absolute rounded-full cursor-pointer bg-sky-300" >
           <i class="material-icons text-black">create</i>
           </label>
           <input type=file id="file" name="photo" accept=".png, .jpeg, .jpg"
-           class="hidden" value="{{ asset('img/profiles'. auth()->user()->photo) }}">
+           class="hidden" value="{{ asset('img/profiles'. auth()->user()->photo) }}"
+           onchange="previewImage(event)"
+           >
         
         
         </div>
@@ -99,6 +102,15 @@
         }
       }, 1800);
     });
+    function previewImage(event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function(){
+            var img = document.getElementById('imagePreview');
+            img.src = reader.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 </script>
 
 

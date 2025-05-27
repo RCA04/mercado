@@ -24,15 +24,15 @@ class SiteController extends Controller
         
         $produto = Produtos::where('slug', $slug)->firstOrFail();
 
-        if(Gate::allows('ver-produto', $produto)){
-            return view('site.details', compact('produto'));
-        }
+        // if(Gate::allows('ver-produto', $produto)){
+        //     return view('site.details', compact('produto'));
+        // }
 
-        if(Gate::denies('ver-produto', $produto)){
-            return redirect()->route('site.index');
-        }
-        //Gate::authorize('ver-produto', $produto);
-        //$this->authorize('verProduto', $produto);
+        // if(Gate::denies('ver-produto', $produto)){
+        //     return redirect()->route('site.index');
+        // }
+        // Gate::authorize('ver-produto', $produto);
+        // $this->authorize('verProduto', $produto);
         return view('site.details', compact('produto'));
     }
 
