@@ -4,6 +4,19 @@ pipeline{
 
     stages{
 
+        stage('pegando repositorios'){
+            steps{
+                sh 'git clone https://github.com/Laradock/laradock.git'
+            }
+        }
+
+        stage('configurando o laradock'){
+            steps{
+                dir('laradcok')
+                sh 'mv .env.example .env'
+            }
+        }
+
         stage('Montando Imagem docker'){
             steps{
                     dir('laradock') {
@@ -14,7 +27,7 @@ pipeline{
         stage('Ativando imagem docker'){
             steps{
                     dir('laradock'){
-                    sh 'docker compose up -d nginx workspace'
+                    sh 'docker compose up -d nginx mysql workspace'
                     }
             }
         }
