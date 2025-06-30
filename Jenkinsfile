@@ -4,12 +4,6 @@ pipeline{
 
     stages{
 
-        stage('pegando repositorios'){
-            steps{
-                sh 'git clone https://github.com/Laradock/laradock.git'
-            }
-        }
-
         stage('configurando o laradock'){
             steps{
                 dir('laradock'){
