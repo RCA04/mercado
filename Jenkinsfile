@@ -11,7 +11,7 @@ pipeline{
                     }
             }
         }
-           stage('Ativando imagem docker'){
+        stage('Ativando imagem docker'){
             steps{
                     dir('laradock'){
                     sh 'docker compose up -d nginx workspace'
