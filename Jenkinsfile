@@ -12,8 +12,9 @@ pipeline{
 
         stage('configurando o laradock'){
             steps{
-                dir('laradcok')
+                dir('laradock'){
                 sh 'mv .env.example .env'
+                }
             }
         }
 
