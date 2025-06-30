@@ -4,14 +4,6 @@ pipeline{
 
     stages{
 
-        stage('configurando o laradock'){
-            steps{
-                dir('laradock'){
-                sh 'mv .env.example .env'
-                }
-            }
-        }
-
         stage('Montando Imagem docker'){
             steps{
                     dir('laradock') {
